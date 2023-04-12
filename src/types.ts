@@ -4,8 +4,8 @@ export type User = {
   email: string;
   password: string;
   token: string;
-  createdAt: Date;
-  lastLogin: Date;
+  createdAt: string;
+  lastLogin: string;
   notes: Note[];
 };
 
@@ -13,7 +13,7 @@ export type Note = {
   id: string;
   title: string;
   content: string;
-  createdAt: Date;
-  updatedAt: Date;
-  createdBy: User;
+  createdAt: string;
+  updatedAt: string;
+  createdBy: string;
 };
