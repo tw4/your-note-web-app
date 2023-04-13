@@ -33,24 +33,18 @@ const Navbar = () => {
       {open ? (
         <CloseIcon
           onClick={handleOpen}
+          fontSize="large"
           sx={{
             color: 'white',
-            display: {
-              color: 'white',
-              height: '100px',
-              width: '100px',
-              xs: 'block',
-              md: 'none',
-            },
+            display: { xs: 'block', md: 'none' },
           }}
         />
       ) : (
         <MenuIcon
           onClick={handleOpen}
+          fontSize="large"
           sx={{
             color: 'white',
-            height: '100px',
-            width: '100px',
             display: { xs: 'block', md: 'none' },
           }}
         />
@@ -62,9 +56,8 @@ const Navbar = () => {
       <Stack
         spacing={10}
         direction={{ xs: 'column', md: 'row' }}
-        fontSize={{ xs: '2.5rem', md: '1rem' }}
+        fontSize={{ xs: 'large' }}
         sx={{
-          width: { xs: '100vh', md: 'auto' },
           display: { xs: open ? 'flex' : 'none', md: 'flex' },
           textAlign: { xs: 'center', md: 'left' },
         }}
