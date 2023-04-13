@@ -5,7 +5,7 @@ const BackgroundCircle = () => {
     <Box
       position="absolute"
       height="50vh"
-      width="100vh"
+      width="50vw"
       borderRadius="100%"
       sx={{
         backgroundColor: '#3A3AF4',
