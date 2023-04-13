@@ -4,14 +4,14 @@ const BackgroundCircle = () => {
   return (
     <Box
       position="absolute"
-      height="10vh"
-      width="50vw"
+      height="35vh"
+      width="70vw"
       borderRadius="100%"
       sx={{
+        filter: 'blur(40px)',
         backgroundColor: '#3A3AF4',
-        boxShadow: '0 0 150px 150px #3A3AF4 ',
-        top: '-10vh',
-        left: '25vw',
+        top: '-17vh',
+        left: '15vw',
         opacity: 0.3,
       }}
       zIndex="-1"
