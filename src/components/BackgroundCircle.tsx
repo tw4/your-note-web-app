@@ -12,7 +12,7 @@ const BackgroundCircle = () => {
         boxShadow: '0 0 150px 130px #3A3AF4 ',
         top: '-40vh',
         left: '25vw',
-        opacity: 0.4,
+        opacity: 0.3,
       }}
       zIndex="-1"
     ></Box>
