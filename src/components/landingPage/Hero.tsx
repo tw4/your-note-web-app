@@ -1,4 +1,4 @@
-import { Typography, Box, Button } from '@mui/material';
+import { Typography, Box, Button, Link } from '@mui/material';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 
 const Hero = () => {
@@ -28,6 +28,8 @@ const Hero = () => {
         user-friendly cloud-based platform.
       </Typography>
       <Button
+        href={'/signup'}
+        component={Link}
         variant="contained"
         endIcon={<KeyboardArrowRightIcon />}
         sx={{
