@@ -9,7 +9,7 @@ const PrivacyPolicy = () => {
     '\n' +
     '## Introduction\n' +
     '\n' +
-    'We at [Mert Sabinov] respect your privacy and are committed to protecting your personal information. This Privacy Policy explains how we collect, use, and disclose information about you when you use our [www.notes.wmte.io] (collectively, the "Services").\n' +
+    'We at [Mert Sabinov](www.mertsabinov.com) respect your privacy and are committed to protecting your personal information. This Privacy Policy explains how we collect, use, and disclose information about you when you use our [notes.wmte.io](www.notes.wmte.io) (collectively, the "Services").\n' +
     '\n' +
     'By using the Services, you agree to the collection and use of information in accordance with this Privacy Policy. If you do not agree with our Privacy Policy, do not use the Services.\n' +
     '\n' +
@@ -78,12 +78,11 @@ const PrivacyPolicy = () => {
     '\n' +
     '## Firebase Services\n' +
     '\n' +
-    "We use Firebase services to provide certain features of the Services, including user authentication, cloud storage, and analytics. Firebase may collect certain information about your use of the Services, such as your IP address, device type, operating system, and usage patterns. Firebase's privacy policy can be found here: [https://firebase.google.com/support/privacy].\n" +
+    "We use Firebase services to provide certain features of the Services, including user authentication, cloud storage, and analytics. Firebase may collect certain information about your use of the Services, such as your IP address, device type, operating system, and usage patterns. Firebase's privacy policy can be found here: [Firebase](https://firebase.google.com/support/privacy)\n" +
     '\n' +
     '## Vercel Web Server\n' +
     '\n' +
-    "We use Vercel web server to host our Services. Vercel may collect certain information about your use of the Services, such as your IP address and usage patterns. Vercel's privacy policy can be found here: [https://vercel.com/legal/privacy-policy].";
-
+    "We use Vercel web server to host our Services. Vercel may collect certain information about your use of the Services, such as your IP address and usage patterns. Vercel's privacy policy can be found here: [Vercel](https://vercel.com/legal/privacy-policy)";
   return (
     <Layout>
       <Box
