@@ -1,7 +1,10 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { User } from '@/types';
 import { v4 } from 'uuid';
-import { ZodUserValidationSchema } from '@/zod/ZodValidationSchema';
+import {
+  ZodUserRegisterValidationSchema,
+  ZodUserValidationSchema,
+} from '@/zod/ZodValidationSchema';
 import jwt from 'jsonwebtoken';
 
 const post = (req: NextApiRequest, res: NextApiResponse) => {
@@ -10,13 +13,10 @@ const post = (req: NextApiRequest, res: NextApiResponse) => {
   if (headers['api-key'] !== process.env.MOCK_API_KEY) {
     return res.status(401).json({ message: 'Unauthorized' });
   } else {
-    if (!user) {
-      return res.status(400).json({ message: 'User is required' });
-    }
-    user.id = v4();
-    user.createdAt = new Date().toLocaleDateString();
-    user.lastLogin = new Date().toLocaleDateString();
-    if (ZodUserValidationSchema.safeParse(user).success) {
+    if (user && ZodUserRegisterValidationSchema.safeParse(user).success) {
+      user.id = v4();
+      user.createdAt = new Date().toLocaleDateString();
+      user.lastLogin = new Date().toLocaleDateString();
       user.token = jwt.sign(
         { id: user.id, email: user.email },
         process.env.MOCK_JWT_SECRET!,
@@ -24,7 +24,7 @@ const post = (req: NextApiRequest, res: NextApiResponse) => {
       );
       return res.status(200).json(user);
     } else {
-      return res.status(400).json({ message: 'User is invalid' });
+      return res.status(400).json({ message: 'User is required' });
     }
   }
 };
