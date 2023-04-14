@@ -1,16 +1,13 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { User } from '@/types';
 import { ZodUserRegisterValidationSchema } from '@/zod/ZodValidationSchema';
-import {
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-} from '@firebase/auth';
+import { createUserWithEmailAndPassword } from '@firebase/auth';
 import { auth, db } from '@/services/Firebase';
 import { addDoc, collection } from '@firebase/firestore';
 
 const post = (req: NextApiRequest, res: NextApiResponse) => {
   const headers = req.headers;
-  if (headers['api-key'] !== process.env.MOCK_API_KEY) {
+  if (headers['api-key'] !== process.env.API_KEY) {
     return res.status(401).json({ message: 'Unauthorized' });
   } else {
     const user: User = req.body;
@@ -41,25 +38,6 @@ const post = (req: NextApiRequest, res: NextApiResponse) => {
     } else {
       return res.status(400).json({ message: 'Bad Request' });
     }
-  }
-};
-
-const get = (req: NextApiRequest, res: NextApiResponse) => {
-  const headers = req.headers;
-  if (headers['api-key'] !== process.env.MOCK_API_KEY) {
-    return res.status(401).json({ message: 'Unauthorized' });
-  } else {
-    signInWithEmailAndPassword(auth, req.body.email, req.body.password)
-      .then(async response => {
-        const token = await response.user.getIdToken();
-        return res.status(200).json({
-          userID: response.user.uid,
-          token: token,
-        });
-      })
-      .catch(err => {
-        return res.status(400).json({ message: err.message });
-      });
   }
 };
 
