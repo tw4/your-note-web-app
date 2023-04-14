@@ -9,7 +9,7 @@ const PrivacyPolicy = () => {
     '\n' +
     '## Introduction\n' +
     '\n' +
-    'We at [Mert Sabinov](www.mertsabinov.com) respect your privacy and are committed to protecting your personal information. This Privacy Policy explains how we collect, use, and disclose information about you when you use our [notes.wmte.io](www.notes.wmte.io) (collectively, the "Services").\n' +
+    'We at [Mert Sabinov](https://mertsabinov.com) respect your privacy and are committed to protecting your personal information. This Privacy Policy explains how we collect, use, and disclose information about you when you use our [notes.wmte.io](www.notes.wmte.io) (collectively, the "Services").\n' +
     '\n' +
     'By using the Services, you agree to the collection and use of information in accordance with this Privacy Policy. If you do not agree with our Privacy Policy, do not use the Services.\n' +
     '\n' +
