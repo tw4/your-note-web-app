@@ -35,7 +35,7 @@ const Eula = () => {
           marginRight: { xs: '5%', md: '10%' },
         }}
       >
-        <ReactMarkdown children={cookiePolicy} />
+        <ReactMarkdown children={EULA} />
       </Box>
     </Layout>
   );
