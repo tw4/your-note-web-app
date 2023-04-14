@@ -1,10 +1,4 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { User } from '@/types';
-import { v4 } from 'uuid';
-import {
-  ZodUserRegisterValidationSchema,
-  ZodUserValidationSchema,
-} from '@/zod/ZodValidationSchema';
 import jwt from 'jsonwebtoken';
 
 const post = (req: NextApiRequest, res: NextApiResponse) => {
