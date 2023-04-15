@@ -70,7 +70,7 @@ const Signup = () => {
         >
           <Stack direction="column" spacing={2} padding="5%">
             <Typography variant="h3" textAlign="center">
-              Signup
+              Sign up
             </Typography>
             <TextField
               onChange={changeHandler}
@@ -149,8 +149,8 @@ const Signup = () => {
                   color: formError ? 'error.main' : 'rgba(255, 255, 255, 0.3)',
                 }}
               />
-              <Link href="/cookiepolicy">cookie policy</Link>,
-              <Link href="/privacypolicy">privacy policy</Link>,
+              <Link href="/cookiepolicy">Cookie Policy</Link>,
+              <Link href="/privacypolicy">Privacy Policy</Link>,
               <Link href="/eula">EULA</Link>, I agree to the terms and
               conditions
             </Typography>
