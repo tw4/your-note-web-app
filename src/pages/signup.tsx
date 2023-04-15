@@ -70,7 +70,7 @@ const Signup = () => {
         >
           <Stack direction="column" spacing={2} padding="5%">
             <Typography variant="h3" textAlign="center">
-              Login
+              Signup
             </Typography>
             <TextField
               onChange={changeHandler}
