@@ -87,16 +87,21 @@ const Navbar = () => {
           href="/contact"
         />
       </Stack>
-      <Button
-        href="/login"
-        component={Link}
-        variant="contained"
+      <Stack
+        direction={{ xs: 'column', md: 'row' }}
+        marginTop={{ xs: '20%', md: '0%' }}
+        spacing={2}
         sx={{
-          display: { xs: 'none', md: 'block' },
+          display: { xs: open ? 'flex' : 'none', md: 'flex' },
         }}
       >
-        Login
-      </Button>
+        <Button href="/signup" component={Link} variant="contained">
+          Sign Up
+        </Button>
+        <Button href="/login" component={Link} variant="contained">
+          Login
+        </Button>
+      </Stack>
     </Stack>
   );
 };
