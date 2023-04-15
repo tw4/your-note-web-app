@@ -32,7 +32,7 @@ const post = (req: NextApiRequest, res: NextApiResponse) => {
             return res.status(400).json({ message: err.message });
           });
           return res.status(200).json({
-            userID: response.user.uid,
+            id: response.user.uid,
             token: token,
             verified: response.user.emailVerified,
           });
