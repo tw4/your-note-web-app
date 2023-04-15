@@ -149,9 +149,9 @@ const Signup = () => {
                   color: formError ? 'error.main' : 'rgba(255, 255, 255, 0.3)',
                 }}
               />
-              <Link href="/cookiepolicy">cookiepolicy</Link>,
-              <Link href="/privacypolicy">privacypolicy</Link>,
-              <Link href="/eula">eula</Link>, I agree to the terms and
+              <Link href="/cookiepolicy">cookie policy</Link>,
+              <Link href="/privacypolicy">privacy policy</Link>,
+              <Link href="/eula">EULA</Link>, I agree to the terms and
               conditions
             </Typography>
             {formError ? (
