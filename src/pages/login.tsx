@@ -4,6 +4,7 @@ import React from 'react';
 import { useState } from 'react';
 import { ZodUserLoginValidationSchema } from '@/zod/ZodValidationSchema';
 import { LoadingButton } from '@mui/lab';
+import { useRouter } from 'next/router';
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -12,6 +13,8 @@ const Login = () => {
   });
   const [formError, setFormError] = useState<string>();
   const [loading, setLoading] = useState<boolean>(false);
+
+  const router = useRouter();
 
   const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -31,7 +34,8 @@ const Login = () => {
       });
       if (res.status === 200) {
         const data = await res.json();
-        sessionStorage.setItem('user', JSON.stringify(data));
+        localStorage.setItem('token', data.token);
+        router.push('/app');
       } else {
         setFormError('Email or password is incorrect');
       }

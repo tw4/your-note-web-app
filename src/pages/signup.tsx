@@ -11,6 +11,7 @@ import React from 'react';
 import { useState } from 'react';
 import { ZodUserRegisterValidationSchema } from '@/zod/ZodValidationSchema';
 import { LoadingButton } from '@mui/lab/';
+import { useRouter } from 'next/router';
 
 const Signup = () => {
   const [formData, setFormData] = useState({
@@ -21,6 +22,8 @@ const Signup = () => {
   const [formError, setFormError] = useState<string>();
   const [checked, setChecked] = useState<boolean>(false);
   const [loading, setLoading] = useState<Boolean>(false);
+
+  const router = useRouter();
 
   const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -41,7 +44,8 @@ const Signup = () => {
         });
         if (res.status === 200) {
           const data = await res.json();
-          sessionStorage.setItem('user', JSON.stringify(data));
+          localStorage.setItem('token', data.token);
+          router.push('/app');
         } else if (res.status === 400) {
           setFormError('email already exists');
         } else {
