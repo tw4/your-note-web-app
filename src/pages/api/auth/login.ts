@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { auth } from '@/services/Firebase';
 import { signInWithEmailAndPassword } from '@firebase/auth';
+import jwt from 'jsonwebtoken';
 
 const post = (req: NextApiRequest, res: NextApiResponse) => {
   const headers = req.headers;
@@ -9,11 +10,17 @@ const post = (req: NextApiRequest, res: NextApiResponse) => {
   } else {
     signInWithEmailAndPassword(auth, req.body.email, req.body.password)
       .then(async response => {
-        const token = await response.user.getIdToken();
+        const token = jwt.sign(
+          {
+            id: response.user.uid,
+            email: response.user.email,
+            verified: response.user.emailVerified,
+          },
+          process.env.JWT_SECRET!,
+          { expiresIn: '24h' }
+        );
         return res.status(200).json({
-          userID: response.user.uid,
           token: token,
-          verified: response.user.emailVerified,
         });
       })
       .catch(err => {

@@ -7,6 +7,7 @@ import {
 } from '@firebase/auth';
 import { auth, db } from '@/services/Firebase';
 import { addDoc, collection } from '@firebase/firestore';
+import jwt from 'jsonwebtoken';
 
 const post = (req: NextApiRequest, res: NextApiResponse) => {
   const headers = req.headers;
@@ -18,7 +19,17 @@ const post = (req: NextApiRequest, res: NextApiResponse) => {
       createUserWithEmailAndPassword(auth, user.email, user.password)
         .then(async response => {
           await sendEmailVerification(response.user);
-          const token = await response.user.getIdToken();
+          const token = jwt.sign(
+            {
+              id: response.user.uid,
+              email: response.user.email,
+              verified: response.user.emailVerified,
+            },
+            process.env.JWT_SECRET!,
+            {
+              expiresIn: '24h',
+            }
+          );
           addDoc(collection(db, 'users'), {
             id: response.user.uid,
             name: user.name,
@@ -32,9 +43,7 @@ const post = (req: NextApiRequest, res: NextApiResponse) => {
             return res.status(400).json({ message: err.message });
           });
           return res.status(200).json({
-            id: response.user.uid,
             token: token,
-            verified: response.user.emailVerified,
           });
         })
         .catch(err => {
