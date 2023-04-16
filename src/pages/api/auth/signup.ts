@@ -34,7 +34,6 @@ const post = (req: NextApiRequest, res: NextApiResponse) => {
             id: response.user.uid,
             name: user.name,
             email: user.email,
-            password: user.password,
             token: token,
             createdAt: new Date().toISOString(),
             lastLogin: new Date().toISOString(),
