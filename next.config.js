@@ -4,6 +4,7 @@ const nextConfig = {
   env: {
     MOCK_API_KEY: process.env.MOCK_API_KEY,
     API_KEY: process.env.API_KEY,
+    JWT_SECRET: process.env.JWT_SECRET,
   },
 };
 
