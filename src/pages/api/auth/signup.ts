@@ -35,8 +35,8 @@ const post = (req: NextApiRequest, res: NextApiResponse) => {
             name: user.name,
             email: user.email,
             token: token,
-            createdAt: new Date().toISOString(),
-            lastLogin: new Date().toISOString(),
+            createdAt: new Date().toLocaleDateString('en-GB'),
+            lastLogin: new Date().toLocaleDateString('en-GB'),
             notes: [],
           }).catch(err => {
             return res.status(400).json({ message: err.message });
