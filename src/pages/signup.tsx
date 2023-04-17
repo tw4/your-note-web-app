@@ -6,11 +6,14 @@ import {
   Typography,
   Checkbox,
   Link,
+  Alert,
+  AlertTitle,
 } from '@mui/material';
 import React from 'react';
 import { useState } from 'react';
 import { ZodUserRegisterValidationSchema } from '@/zod/ZodValidationSchema';
 import { LoadingButton } from '@mui/lab/';
+import Diolog from '@/components/Diolog';
 import { useRouter } from 'next/router';
 
 const Signup = () => {
@@ -22,11 +25,19 @@ const Signup = () => {
   const [formError, setFormError] = useState<string>();
   const [checked, setChecked] = useState<boolean>(false);
   const [loading, setLoading] = useState<Boolean>(false);
+  const [diologIsOpen, setDiologIsOpen] = useState<Boolean>(false);
 
-  const router = useRouter();
+  const route = useRouter();
 
   const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const diologHandler = () => {
+    if (diologIsOpen) {
+      setDiologIsOpen(false);
+      route.push('/login');
+    }
   };
 
   const submitHandler = async () => {
@@ -43,9 +54,7 @@ const Signup = () => {
           body: JSON.stringify(formData),
         });
         if (res.status === 200) {
-          const data = await res.json();
-          localStorage.setItem('token', data.token);
-          router.push('/app');
+          setDiologIsOpen(true);
         } else if (res.status === 400) {
           setFormError('email already exists');
         } else {
@@ -159,9 +168,10 @@ const Signup = () => {
               conditions
             </Typography>
             {formError ? (
-              <Typography color="error" variant="body1">
+              <Alert severity="error" variant="filled">
+                <AlertTitle>Error</AlertTitle>
                 {formError}
-              </Typography>
+              </Alert>
             ) : null}
             <LoadingButton
               loading={loading ? true : false}
@@ -177,6 +187,12 @@ const Signup = () => {
             >
               Login
             </LoadingButton>
+            <Diolog
+              isOpen={diologIsOpen}
+              buttonHandler={diologHandler}
+              title="User Registration Successful"
+              description="Congratulations! Your registration has been successfully completed. To log in, you need to confirm your email address. Please check your inbox and follow the instructions provided in the confirmation email."
+            />
           </Stack>
         </Box>
       </Stack>
