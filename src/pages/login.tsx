@@ -1,5 +1,12 @@
 import Layout from '@/layout/Layout';
-import { Box, Stack, TextField, Typography } from '@mui/material';
+import {
+  Alert,
+  AlertTitle,
+  Box,
+  Stack,
+  TextField,
+  Typography,
+} from '@mui/material';
 import React from 'react';
 import { useState } from 'react';
 import { ZodUserLoginValidationSchema } from '@/zod/ZodValidationSchema';
@@ -32,10 +39,15 @@ const Login = () => {
         },
         body: JSON.stringify(formData),
       });
+      const data = await res.json();
       if (res.status === 200) {
-        const data = await res.json();
+        //TODO update user last login
         localStorage.setItem('token', data.token);
         router.push('/app');
+      } else if (res.status === 401) {
+        setFormError(
+          "You haven't verified your email address. Please verify your email address and try to log in again."
+        );
       } else {
         setFormError('Email or password is incorrect');
       }
@@ -113,9 +125,10 @@ const Login = () => {
               }}
             />
             {formError ? (
-              <Typography color="error" variant="body1">
+              <Alert severity="error" variant="filled">
+                <AlertTitle>Error</AlertTitle>
                 {formError}
-              </Typography>
+              </Alert>
             ) : null}
             <LoadingButton
               loading={loading ? true : false}
