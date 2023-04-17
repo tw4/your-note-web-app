@@ -3,6 +3,8 @@ import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { authControl } from '@/auth';
+import { getUserData } from '@/api';
+import AppLayout from '@/layout/AppLayout';
 
 const NotesApp = () => {
   const router = useRouter();
@@ -21,7 +23,9 @@ const NotesApp = () => {
           <CircularProgress color="inherit" />
         </Backdrop>
       ) : (
-        <Typography>Notes App</Typography>
+        <AppLayout>
+          <Typography>Notes App</Typography>
+        </AppLayout>
       )}
     </Box>
   );
