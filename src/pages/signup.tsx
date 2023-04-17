@@ -24,8 +24,8 @@ const Signup = () => {
   });
   const [formError, setFormError] = useState<string>();
   const [checked, setChecked] = useState<boolean>(false);
-  const [loading, setLoading] = useState<Boolean>(false);
-  const [diologIsOpen, setDiologIsOpen] = useState<Boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [diologIsOpen, setDiologIsOpen] = useState<boolean>(false);
 
   const route = useRouter();
 
