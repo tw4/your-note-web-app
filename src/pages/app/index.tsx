@@ -1,4 +1,4 @@
-import { Box, Typography, CircularProgress } from '@mui/material';
+import { Box, Typography, CircularProgress, Backdrop } from '@mui/material';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { useState } from 'react';
@@ -17,7 +17,9 @@ const NotesApp = () => {
   return (
     <Box>
       {pageIsLoading ? (
-        <CircularProgress />
+        <Backdrop sx={{ color: '#fff' }} open={true}>
+          <CircularProgress color="inherit" />
+        </Backdrop>
       ) : (
         <Typography>Notes App</Typography>
       )}
