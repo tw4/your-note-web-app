@@ -17,3 +17,11 @@ export type Note = {
   updatedAt: string;
   createdBy: string;
 };
+
+export type UserPayload = {
+  id: string;
+  email: string;
+  iat: number;
+  exp: number;
+  verified: boolean;
+};
