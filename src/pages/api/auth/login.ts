@@ -10,18 +10,24 @@ const post = (req: NextApiRequest, res: NextApiResponse) => {
   } else {
     signInWithEmailAndPassword(auth, req.body.email, req.body.password)
       .then(async response => {
-        const token = jwt.sign(
-          {
-            id: response.user.uid,
-            email: response.user.email,
-            verified: response.user.emailVerified,
-          },
-          process.env.JWT_SECRET!,
-          { expiresIn: '24h' }
-        );
-        return res.status(200).json({
-          token: token,
-        });
+        if (response.user.emailVerified) {
+          const token = jwt.sign(
+            {
+              id: response.user.uid,
+              email: response.user.email,
+              verified: response.user.emailVerified,
+            },
+            process.env.JWT_SECRET!,
+            { expiresIn: '24h' }
+          );
+          return res.status(200).json({
+            token: token,
+          });
+        } else {
+          return res.status(401).json({
+            message: 'Email not verified',
+          });
+        }
       })
       .catch(err => {
         return res.status(400).json({ message: err.message });

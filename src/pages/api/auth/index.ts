@@ -1,5 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import jwt from 'jsonwebtoken';
+import { UserPayload } from '@/types';
 
 const get = (req: NextApiRequest, res: NextApiResponse) => {
   if (req.headers.authorization) {
@@ -8,7 +9,12 @@ const get = (req: NextApiRequest, res: NextApiResponse) => {
       if (err) {
         res.status(401).json({ message: 'Unauthorized' });
       } else {
-        res.status(200).json({ message: 'Authorized' });
+        const userPayload = decoded as UserPayload;
+        if (userPayload.verified) {
+          res.status(200).json({ message: 'Authorized' });
+        } else {
+          res.status(401).json({ message: 'Unauthorized' });
+        }
       }
     });
   } else {
