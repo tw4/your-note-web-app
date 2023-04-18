@@ -1,6 +1,6 @@
 import { FC, ReactNode } from 'react';
 import { Box } from '@mui/material';
-import AppNavbar from '@/components/appNavbar/AppNavbar';
+import AppNavbar from '@/components/app/appNavbar/AppNavbar';
 
 type IProps = {
   children?: ReactNode;
