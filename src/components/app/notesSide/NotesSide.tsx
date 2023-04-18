@@ -1,6 +1,7 @@
 import { IconButton, Stack, TextField, Typography } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import { useState } from 'react';
+import NotesSideCard from '@/components/app/notesSide/NotesSideCard';
 
 const NotesSide = () => {
   const [searchActive, setSearchActive] = useState<boolean>(false);
@@ -20,6 +21,7 @@ const NotesSide = () => {
       width="20vw"
       paddingLeft="1.5%"
       paddingRight="1.5%"
+      paddingTop="1.5%"
     >
       <Stack direction="row" justifyContent="space-between">
         <Typography textAlign="start" fontSize="x-large">
@@ -35,6 +37,9 @@ const NotesSide = () => {
         sx={{
           visibility: searchActive ? 'visible' : 'hidden',
           '& label': {
+            color: 'white',
+          },
+          '& input': {
             color: 'white',
           },
           '& label.Mui-focused': {
@@ -56,7 +61,32 @@ const NotesSide = () => {
           },
         }}
       />
-      <Stack direction="column"></Stack>
+      <Stack
+        spacing={2}
+        direction="column"
+        sx={{
+          mt: '2.5%',
+          overflow: 'scroll',
+          overflowX: 'hidden',
+          '&::-webkit-scrollbar': {
+            width: '8px',
+            backgroundColor: 'background.paper',
+          },
+          '&::-webkit-scrollbar-thumb': {
+            borderRadius: '8px',
+            backgroundColor: '#7f7f7f',
+          },
+          '&::-webkit-scrollbar-thumb:hover': {
+            backgroundColor: '#555',
+          },
+          '&::-webkit-scrollbar-track': {
+            borderRadius: '8px',
+            backgroundColor: 'secondary',
+          },
+        }}
+      >
+        <NotesSideCard />
+      </Stack>
     </Stack>
   );
 };
