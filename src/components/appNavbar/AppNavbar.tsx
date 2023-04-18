@@ -53,7 +53,12 @@ const AppNavbar = () => {
       marginRight="2.5%"
     >
       <Box>
-        <IconButton color="primary" onClick={menuHandler}>
+        <IconButton
+          onClick={menuHandler}
+          sx={{
+            color: 'white',
+          }}
+        >
           <MoreVertIcon />
         </IconButton>
         <Menu
@@ -70,7 +75,7 @@ const AppNavbar = () => {
             <MenuItem>
               <ListItem>
                 <ListItemIcon>
-                  <SettingsIcon color="primary" />
+                  <SettingsIcon sx={{ color: 'white' }} />
                 </ListItemIcon>
                 <ListItemText primary="Settings" />
               </ListItem>
@@ -78,7 +83,7 @@ const AppNavbar = () => {
             <MenuItem onClick={logoutHandler}>
               <ListItem>
                 <ListItemIcon>
-                  <LogoutIcon color="primary" />
+                  <LogoutIcon sx={{ color: 'white' }} />
                 </ListItemIcon>
                 <ListItemText primary="Logout" />
               </ListItem>
