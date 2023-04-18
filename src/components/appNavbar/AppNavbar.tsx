@@ -13,9 +13,9 @@ import { useEffect, useState } from 'react';
 import { User } from '@/types';
 import { getUserData } from '@/api';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-import { router } from 'next/client';
 import { useRouter } from 'next/router';
 import LogoutIcon from '@mui/icons-material/Logout';
+import SettingsIcon from '@mui/icons-material/Settings';
 
 const AppNavbar = () => {
   const [user, setUser] = useState<User>();
@@ -62,13 +62,26 @@ const AppNavbar = () => {
           onClose={menuCloseHandler}
           sx={{
             '& .MuiPaper-root': {
-              backgroundColor: 'primary.main',
+              backgroundColor: 'background.paper',
             },
           }}
         >
           <MenuList>
+            <MenuItem>
+              <ListItem>
+                <ListItemIcon>
+                  <SettingsIcon color="primary" />
+                </ListItemIcon>
+                <ListItemText primary="Settings" />
+              </ListItem>
+            </MenuItem>
             <MenuItem onClick={logoutHandler}>
-              <LogoutIcon /> <ListItemText primary="Logout" />
+              <ListItem>
+                <ListItemIcon>
+                  <LogoutIcon color="primary" />
+                </ListItemIcon>
+                <ListItemText primary="Logout" />
+              </ListItem>
             </MenuItem>
           </MenuList>
         </Menu>
