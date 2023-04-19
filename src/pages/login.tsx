@@ -69,12 +69,7 @@ const Login = () => {
             border: '1px solid rgba(255, 255, 255, 0.3)',
           }}
         >
-          <Stack
-            direction="column"
-            spacing={2}
-            padding="5%"
-            onSubmit={() => console.log('test')}
-          >
+          <Stack direction="column" spacing={2} padding="5%">
             <Typography variant="h3" textAlign="center">
               Login
             </Typography>
