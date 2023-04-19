@@ -1,9 +1,21 @@
-import { IconButton, Stack, TextField, Typography } from '@mui/material';
+import { Box, IconButton, Stack, TextField, Typography } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import { useState } from 'react';
 import NotesSideCard from '@/components/app/notesSide/NotesSideCard';
+import { FC } from 'react';
+import { Note } from '@/types';
 
-const NotesSide = () => {
+type IProps = {
+  getNoteDetail: (note: Note) => void;
+  selectedCategory: string | null;
+  noteList: Note[];
+};
+
+const NotesSide: FC<IProps> = ({
+  getNoteDetail,
+  selectedCategory,
+  noteList,
+}) => {
   const [searchActive, setSearchActive] = useState<boolean>(false);
 
   const searchActiveHandler = () => {
@@ -25,7 +37,7 @@ const NotesSide = () => {
     >
       <Stack direction="row" justifyContent="space-between">
         <Typography textAlign="start" fontSize="x-large">
-          Personal
+          {selectedCategory}
         </Typography>
         <IconButton onClick={searchActiveHandler} sx={{ color: 'white' }}>
           <SearchIcon />
@@ -85,7 +97,19 @@ const NotesSide = () => {
           },
         }}
       >
-        <NotesSideCard />
+        {noteList.map(note => {
+          if (note.category === selectedCategory) {
+            return (
+              <Box onClick={() => getNoteDetail(note)}>
+                <NotesSideCard
+                  title={note.title}
+                  content={note.content}
+                  createdAt={note.createdAt}
+                />
+              </Box>
+            );
+          }
+        })}
       </Stack>
     </Stack>
   );

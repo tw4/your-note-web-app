@@ -1,6 +1,13 @@
 import { Box, CardContent, Typography } from '@mui/material';
+import { FC } from 'react';
 
-const NotesSideCard = () => {
+type IProps = {
+  title: string;
+  content: string;
+  createdAt: string;
+};
+
+const NotesSideCard: FC<IProps> = ({ title, content, createdAt }) => {
   return (
     <Box
       sx={{
@@ -13,12 +20,12 @@ const NotesSideCard = () => {
       }}
     >
       <CardContent>
-        <Typography fontSize="large">Card Title</Typography>
+        <Typography fontSize="large">{title.slice(0, 30)}</Typography>
         <Typography marginTop="2.5%" color="lightgray">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Porro, quod.
+          {content.slice(0, 100)}
         </Typography>
         <Typography marginTop="2.5%" color="lightgray">
-          01/01/2077
+          {createdAt}
         </Typography>
       </CardContent>
     </Box>
