@@ -38,6 +38,7 @@ const post = (req: NextApiRequest, res: NextApiResponse) => {
             createdAt: new Date().toLocaleDateString('en-GB'),
             lastLogin: new Date().toLocaleDateString('en-GB'),
             notes: [],
+            category: [],
           }).catch(err => {
             return res.status(400).json({ message: err.message });
           });
