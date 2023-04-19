@@ -8,6 +8,7 @@ import {
   ListItem,
   ListItemText,
   ListItemIcon,
+  Typography,
 } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { User } from '@/types';
@@ -83,9 +84,9 @@ const AppNavbar = () => {
             <MenuItem onClick={logoutHandler}>
               <ListItem>
                 <ListItemIcon>
-                  <LogoutIcon sx={{ color: 'white' }} />
+                  <LogoutIcon sx={{ color: 'error.main' }} />
                 </ListItemIcon>
-                <ListItemText primary="Logout" />
+                <Typography color="error.main">Logout</Typography>
               </ListItem>
             </MenuItem>
           </MenuList>
