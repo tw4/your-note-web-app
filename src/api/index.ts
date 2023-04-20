@@ -1,5 +1,6 @@
 import { Note } from '@/types';
 import { afterWrite } from '@popperjs/core';
+import { json } from 'stream/consumers';
 
 export const getUserData = async (token: string) => {
   const response = await fetch('/api/user', {
@@ -64,6 +65,19 @@ export const getCategoryList = async (token: string) => {
       'api-key': process.env.API_KEY!,
       Authorization: `Bearer ${token}`,
     },
+  });
+  return response.json();
+};
+
+export const addCategory = async (token: string, category: string) => {
+  const response = await fetch('api/category', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'api-key': process.env.API_KEY!,
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({ category: category }),
   });
   return response.json();
 };
