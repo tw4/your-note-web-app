@@ -26,7 +26,6 @@ import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import { Note } from '@/types';
 import { addNote, deleteNote, getCategoryList } from '@/api';
 import FolderOpenOutlinedIcon from '@mui/icons-material/FolderOpenOutlined';
-import { afterWrite } from '@popperjs/core';
 
 type IProps = {
   noteDetail: Note;
