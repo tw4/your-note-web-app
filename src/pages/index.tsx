@@ -2,6 +2,7 @@ import Head from 'next/head';
 import BackgroundCircle from '@/components/BackgroundCircle';
 import Layout from '@/layout/Layout';
 import Hero from '@/components/landingPage/Hero';
+import Product from '@/components/landingPage/Product';
 
 const Home = () => {
   return (
@@ -17,6 +18,7 @@ const Home = () => {
       <Layout>
         <BackgroundCircle />
         <Hero />
+        <Product />
       </Layout>
     </>
   );
