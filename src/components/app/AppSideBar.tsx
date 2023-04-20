@@ -97,6 +97,15 @@ const AppSideBar: FC<IProps> = ({
     });
   };
 
+  const handleContextMenu = (
+    e: React.MouseEvent<HTMLElement>,
+    select: string
+  ) => {
+    e.preventDefault();
+    menuItemOptionOpenHandler(e);
+    getSelectedCategory(select);
+  };
+
   return (
     <Stack direction="column" marginLeft="1.5%" marginRight="1.5%" width="20vw">
       <Typography textAlign="start" fontSize="x-large">
@@ -204,7 +213,7 @@ const AppSideBar: FC<IProps> = ({
             return (
               <MenuItem
                 onClick={() => getSelectedCategory(category)}
-                onDoubleClick={menuItemOptionOpenHandler}
+                onContextMenu={e => handleContextMenu(e, category)}
               >
                 <ListItemIcon>
                   <FolderOpenOutlinedIcon
