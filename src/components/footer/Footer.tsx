@@ -1,9 +1,9 @@
-import { Box, Typography } from '@mui/material';
+import { Stack, Typography } from '@mui/material';
 const Footer = () => {
   return (
-    <Box position="fixed" bottom="1vh" left="1vw">
+    <Stack direction="column" zIndex={2} height="5vh" alignItems="center">
       <Typography>Pre-Alpha</Typography>
-    </Box>
+    </Stack>
   );
 };
 
