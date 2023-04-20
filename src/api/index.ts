@@ -81,3 +81,15 @@ export const addCategory = async (token: string, category: string) => {
   });
   return response.json();
 };
+
+export const deleteCategory = async (token: string, category: string) => {
+  const response = await fetch('api/category?' + 'category=' + category, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+      'api-key': process.env.API_KEY!,
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return response.json();
+};
