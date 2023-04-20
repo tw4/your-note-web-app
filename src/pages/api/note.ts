@@ -30,6 +30,7 @@ const post = (req: NextApiRequest, res: NextApiResponse) => {
       !categoryList.includes(req.body.category)
         ? categoryList.push(req.body.category)
         : null;
+
       if (req.body.noteID !== 'undefined') {
         const noteIndex = noteList.findIndex(
           note => note.id === req.body.noteID
@@ -38,9 +39,26 @@ const post = (req: NextApiRequest, res: NextApiResponse) => {
         noteList[noteIndex].content = req.body.content;
         noteList[noteIndex].category = req.body.category;
         noteList[noteIndex].updatedAt = new Date().toLocaleDateString('en-GB');
+
+        let categoryListTmp: string[] = categoryList;
+        const note: Note[] = user
+          .data()
+          .notes.filter((note: Note) => note.id === req.body.noteID);
+
+        const categoryControl: Note[] = noteList.filter(
+          (n: Note) => n.category === note[0].category
+        );
+
+        let newCategoryList = categoryListTmp.filter(
+          (category: string) => category !== note[0].category
+        );
+
+        newCategoryList =
+          categoryControl.length === 0 ? newCategoryList : categoryListTmp;
+
         await updateDoc(user.ref, {
           notes: noteList,
-          category: categoryList,
+          category: newCategoryList,
         })
           .then(() => {
             res.status(200).json({ message: 'ok' });
