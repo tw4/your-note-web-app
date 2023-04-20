@@ -26,12 +26,12 @@ const AppSideBar: FC<IProps> = ({
 }) => {
   const newNote: Note = {
     id: '',
-    title: 'Title',
-    content: '',
+    title: 'New Note',
+    content: 'New note content',
     createdBy: '',
     createdAt: `${new Date().toLocaleDateString('en-GB')}`,
     updatedAt: '',
-    category: 'Folder Name for note',
+    category: 'New Folder',
   };
 
   return (
