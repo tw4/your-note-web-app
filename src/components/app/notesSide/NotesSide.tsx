@@ -37,7 +37,7 @@ const NotesSide: FC<IProps> = ({
     >
       <Stack direction="row" justifyContent="space-between">
         <Typography textAlign="start" fontSize="x-large">
-          {selectedCategory === null ? 'All' : selectedCategory}
+          {selectedCategory === null ? 'No Folder selected' : selectedCategory}
         </Typography>
         <IconButton onClick={searchActiveHandler} sx={{ color: 'white' }}>
           <SearchIcon />
@@ -99,16 +99,6 @@ const NotesSide: FC<IProps> = ({
       >
         {noteList.map(note => {
           if (note.category === selectedCategory) {
-            return (
-              <Box onClick={() => getNoteDetail(note)}>
-                <NotesSideCard
-                  title={note.title}
-                  content={note.content}
-                  createdAt={note.createdAt}
-                />
-              </Box>
-            );
-          } else {
             return (
               <Box onClick={() => getNoteDetail(note)}>
                 <NotesSideCard
