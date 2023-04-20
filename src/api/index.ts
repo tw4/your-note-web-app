@@ -56,3 +56,14 @@ export const deleteNote = async (token: string, id: string) => {
 
   return response.json();
 };
+
+export const getCategoryList = async (token: string) => {
+  const response = await fetch('api/category', {
+    headers: {
+      'Content-Type': 'application/json',
+      'api-key': process.env.API_KEY!,
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return response.json();
+};
