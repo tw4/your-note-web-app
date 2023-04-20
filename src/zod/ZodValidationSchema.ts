@@ -12,11 +12,11 @@ export const ZodUserValidationSchema = z.object({
 
 export const ZodUserRegisterValidationSchema = z.object({
   name: z.string().min(1).max(100),
-  email: z.string().email().min(1).max(100),
+  email: z.string().email().min(1).max(50),
   password: z.string().min(6).max(20),
 });
 
 export const ZodUserLoginValidationSchema = z.object({
-  email: z.string().email().min(1).max(100),
+  email: z.string().email().min(1).max(50),
   password: z.string().min(6).max(20),
 });
