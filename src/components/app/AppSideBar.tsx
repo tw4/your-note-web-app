@@ -7,6 +7,7 @@ import {
   DialogTitle,
   IconButton,
   ListItemIcon,
+  Menu,
   MenuItem,
   MenuList,
   Stack,
@@ -14,12 +15,13 @@ import {
   Typography,
 } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
-import { FC, useEffect, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { Note } from '@/types';
 import FolderOpenOutlinedIcon from '@mui/icons-material/FolderOpenOutlined';
 import CreateNewFolderOutlinedIcon from '@mui/icons-material/CreateNewFolderOutlined';
-import { addCategory, getCategoryList } from '@/api';
+import { addCategory, deleteCategory, getCategoryList } from '@/api';
 import { z } from 'zod';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
 type IProps = {
   getNoteDetail: (note: Note) => void;
@@ -35,6 +37,10 @@ const AppSideBar: FC<IProps> = ({
   const [isOpenDialog, setIsOpenDialog] = useState<boolean>(false);
   const [newCategory, setNewCategory] = useState<string>('');
   const [categoryList, setCategoryList] = useState<string[]>([]);
+  const [isOpenMenuItemOption, setIsOpenMenuItemOption] =
+    useState<boolean>(false);
+  const [menuItemOptionAnchorEl, setMenuItemOptionAnchorEl] =
+    useState<null | HTMLElement>(null);
 
   useEffect(() => {
     getCategoryList(localStorage.getItem('token')!).then(res => {
@@ -70,6 +76,27 @@ const AppSideBar: FC<IProps> = ({
     dialogCloseHandler();
   };
 
+  const menuItemOptionOpenHandler = (e: React.MouseEvent<HTMLElement>) => {
+    setMenuItemOptionAnchorEl(e.currentTarget);
+    setIsOpenMenuItemOption(true);
+  };
+
+  const menuItemOptionCloseHandler = () => {
+    setIsOpenMenuItemOption(false);
+    setMenuItemOptionAnchorEl(null);
+  };
+
+  const onDeleteFolder = async () => {
+    await deleteCategory(
+      localStorage.getItem('token')!,
+      selectedCategory || ''
+    );
+    menuItemOptionCloseHandler();
+    getCategoryList(localStorage.getItem('token')!).then(res => {
+      setCategoryList(res.categoryList);
+    });
+  };
+
   return (
     <Stack direction="column" marginLeft="1.5%" marginRight="1.5%" width="20vw">
       <Typography textAlign="start" fontSize="x-large">
@@ -84,7 +111,7 @@ const AppSideBar: FC<IProps> = ({
       >
         New Note
       </Button>
-      <Stack direction="column" marginTop="5%" height="25vh">
+      <Stack direction="column" marginTop="5%" height="50vh">
         <Stack
           direction="row"
           justifyContent="space-between"
@@ -175,7 +202,10 @@ const AppSideBar: FC<IProps> = ({
         >
           {categoryList.map(category => {
             return (
-              <MenuItem onClick={() => getSelectedCategory(category)}>
+              <MenuItem
+                onClick={() => getSelectedCategory(category)}
+                onDoubleClick={menuItemOptionOpenHandler}
+              >
                 <ListItemIcon>
                   <FolderOpenOutlinedIcon
                     sx={{
@@ -192,6 +222,20 @@ const AppSideBar: FC<IProps> = ({
             );
           })}
         </MenuList>
+        <Menu
+          open={isOpenMenuItemOption}
+          anchorEl={menuItemOptionAnchorEl}
+          onClose={menuItemOptionCloseHandler}
+        >
+          <MenuList>
+            <MenuItem onClick={onDeleteFolder}>
+              <ListItemIcon>
+                <DeleteForeverIcon color="error" />
+              </ListItemIcon>
+              <Typography color="error.main">Delete Folder</Typography>
+            </MenuItem>
+          </MenuList>
+        </Menu>
       </Stack>
     </Stack>
   );
