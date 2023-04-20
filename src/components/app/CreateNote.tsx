@@ -24,7 +24,9 @@ import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import ExpandCircleDownOutlinedIcon from '@mui/icons-material/ExpandCircleDownOutlined';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import { Note } from '@/types';
-import { addNote, deleteNote } from '@/api';
+import { addNote, deleteNote, getCategoryList } from '@/api';
+import FolderOpenOutlinedIcon from '@mui/icons-material/FolderOpenOutlined';
+import { afterWrite } from '@popperjs/core';
 
 type IProps = {
   noteDetail: Note;
@@ -35,12 +37,14 @@ const CreateNote: FC<IProps> = ({ noteDetail }) => {
   const [content, setContent] = useState<string>(noteDetail.content);
   const [isEdit, setIsEdit] = useState<boolean>(false);
   const [date, setDate] = useState<string>(noteDetail.createdAt);
-  const [menuAnchorEl, setMenuAnchorEl] = React.useState<null | HTMLElement>(
-    null
-  );
+  const [menuAnchorEl, setMenuAnchorEl] = useState<null | HTMLElement>(null);
   const [isOpenMenu, setIsOpenMenu] = useState<boolean>(false);
   const [folderName, setFolderName] = useState<string>(noteDetail.category);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [categoryMenuAnchorEl, setCategoryMenuAnchorEl] =
+    useState<HTMLElement | null>(null);
+  const [isOpenCategoryMenu, setIsOpenCategoryMenu] = useState<boolean>(false);
+  const [categoryList, setCategoryList] = useState<string[]>([]);
 
   const contentChangeHandler = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setContent(e.target.value);
@@ -54,6 +58,26 @@ const CreateNote: FC<IProps> = ({ noteDetail }) => {
   const menuCloseHandler = () => {
     setMenuAnchorEl(null);
     setIsOpenMenu(false);
+  };
+
+  const categoryMenuHandler = async (
+    e: React.MouseEvent<HTMLButtonElement>
+  ) => {
+    getCategoryList(localStorage.getItem('token')!).then(async res => {
+      await setCategoryList(res.categoryList);
+    });
+    await setCategoryMenuAnchorEl(e.currentTarget);
+    await setIsOpenCategoryMenu(true);
+  };
+
+  const categoryMenuCloseHandler = () => {
+    setIsOpenCategoryMenu(false);
+    setCategoryMenuAnchorEl(null);
+  };
+
+  const categoryMenuOptionsHandler = (category: string) => {
+    setFolderName(category);
+    categoryMenuCloseHandler();
   };
 
   const menuOptionsHandler = (selection: string) => {
@@ -215,51 +239,84 @@ const CreateNote: FC<IProps> = ({ noteDetail }) => {
         </Menu>
       </Stack>
       <Stack direction="row" alignItems="center" marginTop="2.5%" spacing={2}>
-        <DateRangeIcon fontSize="small" sx={{ color: 'white' }} />
-        <Typography sx={{ fontSize: 'large' }}>{date}</Typography>
+        <DateRangeIcon sx={{ color: 'grey' }} />
+        <Typography color="grey">Date</Typography>
+        <Typography sx={{ fontSize: 'large', textDecoration: 'underline' }}>
+          {date}
+        </Typography>
         <Tooltip title="Creation date of the note">
-          <InfoOutlinedIcon style={{ color: 'white', cursor: 'pointer' }} />
+          <InfoOutlinedIcon style={{ color: 'grey', cursor: 'pointer' }} />
         </Tooltip>
       </Stack>
       <Divider style={{ backgroundColor: 'grey', marginTop: '2.5%' }} />
-      {isEdit ? (
-        <Stack direction="row">
-          <TextField
-            variant="standard"
-            label="Folder name"
-            value={folderName}
-            onChange={e => setFolderName(e.target.value.slice(0, 20))}
-            sx={{
-              mt: '2.5%',
-              '& label': {
-                color: 'white',
-              },
-              '& input': {
-                color: 'white',
-              },
-              '& label.Mui-focused': {
-                color: 'white',
-              },
-              '& .MuiInput-underline:after': {
-                borderBottomColor: 'white',
-              },
-              '& .MuiOutlinedInput-root': {
-                '& fieldset': {
-                  borderColor: 'white',
+      <Stack direction="row" alignItems="center" marginTop="2.5%" spacing={2}>
+        <FolderOpenOutlinedIcon sx={{ color: 'grey' }} />
+        <Typography color="grey">Folder</Typography>
+        {isEdit ? (
+          <>
+            <TextField
+              variant="standard"
+              label="Folder name"
+              value={folderName}
+              onChange={e => setFolderName(e.target.value.slice(0, 20))}
+              sx={{
+                '& label': {
+                  color: 'white',
                 },
-                '&:hover fieldset': {
-                  borderColor: 'white',
+                '& input': {
+                  color: 'white',
                 },
-                '&.Mui-focused fieldset': {
-                  borderColor: 'white',
+                '& label.Mui-focused': {
+                  color: 'white',
                 },
-              },
-            }}
-          />
-        </Stack>
-      ) : (
-        <Typography sx={{ mt: '2.5%' }}>{noteDetail.category}</Typography>
-      )}
+                '& .MuiInput-underline:after': {
+                  borderBottomColor: 'white',
+                },
+                '& .MuiOutlinedInput-root': {
+                  '& fieldset': {
+                    borderColor: 'white',
+                  },
+                  '&:hover fieldset': {
+                    borderColor: 'white',
+                  },
+                  '&.Mui-focused fieldset': {
+                    borderColor: 'white',
+                  },
+                },
+              }}
+            />
+            <Button
+              endIcon={<ExpandCircleDownOutlinedIcon />}
+              color="secondary"
+              variant="contained"
+              onClick={categoryMenuHandler}
+            >
+              Select folder
+            </Button>
+            <Menu
+              anchorEl={categoryMenuAnchorEl}
+              open={isOpenCategoryMenu}
+              onClose={categoryMenuCloseHandler}
+            >
+              <MenuList>
+                {categoryList.map(category => {
+                  return (
+                    <MenuItem
+                      onClick={() => categoryMenuOptionsHandler(category)}
+                    >
+                      <Typography>{category}</Typography>
+                    </MenuItem>
+                  );
+                })}
+              </MenuList>
+            </Menu>
+          </>
+        ) : (
+          <Typography sx={{ textDecoration: 'underline' }}>
+            {noteDetail.category}
+          </Typography>
+        )}
+      </Stack>
       <Divider style={{ backgroundColor: 'grey', marginTop: '2.5%' }} />
       {isEdit ? (
         <TextareaAutosize
