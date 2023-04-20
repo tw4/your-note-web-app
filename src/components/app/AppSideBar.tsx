@@ -55,7 +55,7 @@ const AppSideBar: FC<IProps> = ({
     createdBy: '',
     createdAt: `${new Date().toLocaleDateString('en-GB')}`,
     updatedAt: '',
-    category: 'New Folder',
+    category: selectedCategory || 'New Folder',
   };
 
   const dialogOpenHandler = () => {
