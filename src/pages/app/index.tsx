@@ -22,7 +22,6 @@ const NotesApp = () => {
   const [pageIsLoading, setPageIsLoading] = useState(true);
   const [noteDetail, setNoteDetail] = useState<Note | null>(null);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-  const [categoryList, setCategoryList] = useState<string[]>([]);
   const [noteList, setNoteList] = useState<Note[]>([]);
 
   useEffect(() => {
@@ -31,7 +30,6 @@ const NotesApp = () => {
     });
 
     getNoteList(localStorage.getItem('token')!).then(res => {
-      setCategoryList(res.category);
       setNoteList(res.notes);
     });
   }, []);
@@ -55,7 +53,6 @@ const NotesApp = () => {
         <AppLayout>
           <Stack direction="row" height="95vh">
             <AppSideBar
-              categoryList={categoryList}
               selectedCategory={selectedCategory}
               getSelectedCategory={getSelectedCategory}
               getNoteDetail={getNoteDetail}
