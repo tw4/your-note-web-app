@@ -46,7 +46,7 @@ const NotesSide: FC<IProps> = ({
           <CloseIcon />
         </IconButton>
       </Stack>
-      <Stack direction="row" justifyContent="space-between">
+      <Stack direction="row" justifyContent="space-between" marginTop="2.5%">
         <Typography textAlign="start" fontSize="x-large">
           {selectedCategory === null ? 'No Folder selected' : selectedCategory}
         </Typography>
@@ -54,41 +54,44 @@ const NotesSide: FC<IProps> = ({
           <SearchIcon />
         </IconButton>
       </Stack>
-      <TextField
-        variant="standard"
-        label="Search"
-        sx={{
-          visibility: searchActive ? 'visible' : 'hidden',
-          '& label': {
-            color: 'white',
-          },
-          '& input': {
-            color: 'white',
-          },
-          '& label.Mui-focused': {
-            color: 'white',
-          },
-          '& .MuiInput-underline:after': {
-            borderBottomColor: 'white',
-          },
-          '& .MuiOutlinedInput-root': {
-            '& fieldset': {
-              borderColor: 'white',
+      {searchActive ? (
+        <TextField
+          variant="standard"
+          label="Search"
+          sx={{
+            mt: '2.5%',
+            '& label': {
+              color: 'white',
             },
-            '&:hover fieldset': {
-              borderColor: 'white',
+            '& input': {
+              color: 'white',
             },
-            '&.Mui-focused fieldset': {
-              borderColor: 'white',
+            '& label.Mui-focused': {
+              color: 'white',
             },
-          },
-        }}
-      />
+            '& .MuiInput-underline:after': {
+              borderBottomColor: 'white',
+            },
+            '& .MuiOutlinedInput-root': {
+              '& fieldset': {
+                borderColor: 'white',
+              },
+              '&:hover fieldset': {
+                borderColor: 'white',
+              },
+              '&.Mui-focused fieldset': {
+                borderColor: 'white',
+              },
+            },
+          }}
+        />
+      ) : null}
+
       <Stack
         spacing={2}
         direction="column"
         sx={{
-          mt: '2.5%',
+          mt: '5%',
           overflow: 'scroll',
           overflowX: 'hidden',
           '&::-webkit-scrollbar': {
