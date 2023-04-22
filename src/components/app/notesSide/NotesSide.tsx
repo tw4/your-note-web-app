@@ -4,17 +4,20 @@ import { useState } from 'react';
 import NotesSideCard from '@/components/app/notesSide/NotesSideCard';
 import { FC } from 'react';
 import { Note } from '@/types';
+import CloseIcon from '@mui/icons-material/Close';
 
 type IProps = {
   getNoteDetail: (note: Note) => void;
   selectedCategory: string | null;
   noteList: Note[];
+  getSelectedCategory: (category: string | null) => void;
 };
 
 const NotesSide: FC<IProps> = ({
   getNoteDetail,
   selectedCategory,
   noteList,
+  getSelectedCategory,
 }) => {
   const [searchActive, setSearchActive] = useState<boolean>(false);
 
@@ -35,6 +38,14 @@ const NotesSide: FC<IProps> = ({
       paddingRight="1.5%"
       paddingTop="1.5%"
     >
+      <Stack direction="row" justifyContent="end">
+        <IconButton
+          onClick={() => getSelectedCategory(null)}
+          sx={{ color: 'white' }}
+        >
+          <CloseIcon />
+        </IconButton>
+      </Stack>
       <Stack direction="row" justifyContent="space-between">
         <Typography textAlign="start" fontSize="x-large">
           {selectedCategory === null ? 'No Folder selected' : selectedCategory}

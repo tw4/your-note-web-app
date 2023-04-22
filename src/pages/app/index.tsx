@@ -39,7 +39,7 @@ const NotesApp = () => {
     await setNoteDetail(note);
   };
 
-  const getSelectedCategory = async (category: string) => {
+  const getSelectedCategory = async (category: string | null) => {
     await setSelectedCategory(category);
   };
 
@@ -57,11 +57,15 @@ const NotesApp = () => {
               getSelectedCategory={getSelectedCategory}
               getNoteDetail={getNoteDetail}
             />
-            <NotesSide
-              noteList={noteList}
-              selectedCategory={selectedCategory}
-              getNoteDetail={getNoteDetail}
-            />
+            {selectedCategory ? (
+              <NotesSide
+                noteList={noteList}
+                selectedCategory={selectedCategory}
+                getNoteDetail={getNoteDetail}
+                getSelectedCategory={getSelectedCategory}
+              />
+            ) : null}
+
             {noteDetail !== null ? (
               <CreateNote noteDetail={noteDetail} />
             ) : (
