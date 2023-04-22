@@ -51,7 +51,7 @@ const AppSideBar: FC<IProps> = ({
   const newNote: Note = {
     id: '',
     title: 'New Note',
-    content: 'New note content',
+    content: '',
     createdBy: '',
     createdAt: `${new Date().toLocaleDateString('en-GB')}`,
     updatedAt: '',
