@@ -26,6 +26,11 @@ import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import { Note } from '@/types';
 import { addNote, deleteNote, getCategoryList } from '@/api';
 import FolderOpenOutlinedIcon from '@mui/icons-material/FolderOpenOutlined';
+import ToastMessage from '@/components/ToastMessage';
+import toastMessage from '@/components/ToastMessage';
+import { severityEnum } from '@/enum';
+import { ZodNoteSaveValidationSchema } from '@/zod/ZodValidationSchema';
+import note from '@/pages/api/note';
 
 type IProps = {
   noteDetail: Note;
@@ -44,6 +49,8 @@ const CreateNote: FC<IProps> = ({ noteDetail }) => {
     useState<HTMLElement | null>(null);
   const [isOpenCategoryMenu, setIsOpenCategoryMenu] = useState<boolean>(false);
   const [categoryList, setCategoryList] = useState<string[]>([]);
+  const [isOpenToastMessage, setIsOpenToastMessage] = useState<boolean>(false);
+  const [toastMessageContent, setToastMessageContent] = useState<string>('');
 
   const contentChangeHandler = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setContent(e.target.value);
@@ -107,15 +114,24 @@ const CreateNote: FC<IProps> = ({ noteDetail }) => {
       createdAt: noteDetail.createdAt,
       updatedAt: '',
     };
-    await addNote(localStorage.getItem('token')!, newNote)
-      .then(res => {
-        setIsLoading(false);
-      })
-      .catch(err => {
-        setIsLoading(false);
-      });
-    window.location.reload();
-    setIsLoading(false);
+
+    if (ZodNoteSaveValidationSchema.safeParse(newNote).success) {
+      await addNote(localStorage.getItem('token')!, newNote)
+        .then(res => {
+          setIsLoading(false);
+        })
+        .catch(err => {
+          setIsLoading(false);
+        });
+      window.location.reload();
+      setIsLoading(false);
+    } else {
+      setIsLoading(false);
+      setToastMessageContent(
+        'Please fill in the required fields - note title, note content, and folder name.'
+      );
+      setIsOpenToastMessage(true);
+    }
   };
 
   const onDeleteNote = async () => {
@@ -155,6 +171,12 @@ const CreateNote: FC<IProps> = ({ noteDetail }) => {
         },
       }}
     >
+      <ToastMessage
+        content={toastMessageContent}
+        isOpen={isOpenToastMessage}
+        severity={severityEnum.error}
+        setIsopen={setIsOpenToastMessage}
+      />
       <Backdrop open={isLoading} sx={{ color: '#fff', zIndex: '2' }}>
         <CircularProgress color="inherit" />
       </Backdrop>
