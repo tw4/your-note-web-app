@@ -144,30 +144,7 @@ const CreateNote: FC<IProps> = ({ noteDetail }) => {
   };
 
   return (
-    <Stack
-      marginLeft="1.5%"
-      marginRight="1.5%"
-      width="60vw"
-      sx={{
-        overflow: 'scroll',
-        overflowX: 'hidden',
-        '&::-webkit-scrollbar': {
-          width: '8px',
-          backgroundColor: 'background.paper',
-        },
-        '&::-webkit-scrollbar-thumb': {
-          borderRadius: '8px',
-          backgroundColor: '#7f7f7f',
-        },
-        '&::-webkit-scrollbar-thumb:hover': {
-          backgroundColor: '#555',
-        },
-        '&::-webkit-scrollbar-track': {
-          borderRadius: '8px',
-          backgroundColor: 'secondary',
-        },
-      }}
-    >
+    <Stack marginLeft="1.5%" marginRight="1.5%" width="60vw">
       <ToastMessage
         content={toastMessageContent}
         isOpen={isOpenToastMessage}
@@ -336,26 +313,48 @@ const CreateNote: FC<IProps> = ({ noteDetail }) => {
         )}
       </Stack>
       <Divider style={{ backgroundColor: 'grey', marginTop: '2.5%' }} />
-      {isEdit ? (
-        <TextareaAutosize
-          placeholder="type here..."
-          minRows={3}
-          onChange={contentChangeHandler}
-          value={content}
-          style={{
-            backgroundColor: 'transparent',
-            color: 'white',
-            fontSize: 'x-large',
-            height: '90vh',
-            marginTop: '2.5%',
-            outline: 'none',
-          }}
-        />
-      ) : (
-        <Box color="white">
-          <ReactMarkdown children={content} />
-        </Box>
-      )}
+      <Stack
+        sx={{
+          overflow: 'scroll',
+          overflowX: 'hidden',
+          '&::-webkit-scrollbar': {
+            width: '8px',
+            backgroundColor: 'background.paper',
+          },
+          '&::-webkit-scrollbar-thumb': {
+            borderRadius: '8px',
+            backgroundColor: '#7f7f7f',
+          },
+          '&::-webkit-scrollbar-thumb:hover': {
+            backgroundColor: '#555',
+          },
+          '&::-webkit-scrollbar-track': {
+            borderRadius: '8px',
+            backgroundColor: 'secondary',
+          },
+        }}
+      >
+        {isEdit ? (
+          <TextareaAutosize
+            placeholder="type here..."
+            minRows={3}
+            onChange={contentChangeHandler}
+            value={content}
+            style={{
+              backgroundColor: 'transparent',
+              color: 'white',
+              fontSize: 'x-large',
+              height: '90vh',
+              marginTop: '2.5%',
+              outline: 'none',
+            }}
+          />
+        ) : (
+          <Box color="white">
+            <ReactMarkdown children={content} />
+          </Box>
+        )}
+      </Stack>
     </Stack>
   );
 };
