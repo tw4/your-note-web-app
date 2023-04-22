@@ -136,14 +136,11 @@ const CreateNote: FC<IProps> = ({ noteDetail }) => {
 
   const onDeleteNote = async () => {
     setIsLoading(true);
-    deleteNote(localStorage.getItem('token')!, noteDetail.id)
-      .then(res => {
-        window.location.reload();
-        setIsLoading(false);
-      })
-      .catch(err => {
-        setIsLoading(false);
-      });
+    deleteNote(localStorage.getItem('token')!, noteDetail.id).then(res => {
+      setIsLoading(false);
+    });
+    setIsLoading(false);
+    window.location.reload();
   };
 
   return (
