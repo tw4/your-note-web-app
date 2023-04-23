@@ -330,7 +330,6 @@ const CreateNote: FC<IProps> = ({ noteDetail }) => {
             style={{
               backgroundColor: 'transparent',
               color: 'white',
-              fontSize: 'x-large',
               height: '90vh',
               marginTop: '2.5%',
               outline: 'none',
