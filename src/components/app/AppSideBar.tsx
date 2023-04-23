@@ -1,4 +1,5 @@
 import {
+  Alert,
   Button,
   Dialog,
   DialogActions,
@@ -41,6 +42,7 @@ const AppSideBar: FC<IProps> = ({
     useState<boolean>(false);
   const [menuItemOptionAnchorEl, setMenuItemOptionAnchorEl] =
     useState<null | HTMLElement>(null);
+  const [newCateGoryError, setNewCategoryError] = useState<string | null>(null);
 
   useEffect(() => {
     getCategoryList(localStorage.getItem('token')!).then(res => {
@@ -59,6 +61,7 @@ const AppSideBar: FC<IProps> = ({
   };
 
   const dialogOpenHandler = () => {
+    setNewCategoryError(null);
     setNewCategory('');
     setIsOpenDialog(true);
   };
@@ -72,8 +75,10 @@ const AppSideBar: FC<IProps> = ({
       addCategory(localStorage.getItem('token')!, newCategory).then(res => {
         setCategoryList(res.categoryList);
       });
+      dialogCloseHandler();
+    } else {
+      setNewCategoryError('Please do not leave this field blank.');
     }
-    dialogCloseHandler();
   };
 
   const menuItemOptionOpenHandler = (e: React.MouseEvent<HTMLElement>) => {
@@ -149,30 +154,43 @@ const AppSideBar: FC<IProps> = ({
                 onChange={e => setNewCategory(e.target.value)}
                 sx={{
                   '& label': {
-                    color: 'white',
+                    color: newCateGoryError ? 'error.main' : 'white',
                   },
                   '& input': {
-                    color: 'white',
+                    color: newCateGoryError ? 'error.main' : 'white',
                   },
                   '& label.Mui-focused': {
-                    color: 'white',
+                    color: newCateGoryError ? 'error.main' : 'white',
                   },
                   '& .MuiInput-underline:after': {
-                    borderBottomColor: 'white',
+                    borderBottomColor: newCateGoryError
+                      ? 'error.main'
+                      : 'white',
                   },
                   '& .MuiOutlinedInput-root': {
                     '& fieldset': {
-                      borderColor: 'white',
+                      borderColor: newCateGoryError ? 'error.main' : 'white',
                     },
                     '&:hover fieldset': {
-                      borderColor: 'white',
+                      borderColor: newCateGoryError ? 'error.main' : 'white',
                     },
                     '&.Mui-focused fieldset': {
-                      borderColor: 'white',
+                      borderColor: newCateGoryError ? 'error.main' : 'white',
                     },
                   },
                 }}
               />
+              {newCateGoryError ? (
+                <Alert
+                  severity="error"
+                  variant="filled"
+                  sx={{
+                    marginTop: '1.5em',
+                  }}
+                >
+                  {newCateGoryError}
+                </Alert>
+              ) : null}
             </DialogContent>
             <DialogActions>
               <Button onClick={dialogCloseHandler} color="error">
