@@ -38,7 +38,10 @@ const NotesSide: FC<IProps> = ({
       paddingRight="1.5%"
       paddingTop="1.5%"
     >
-      <Stack direction="row" justifyContent="end">
+      <Stack direction="row" justifyContent="space-between">
+        <Typography textAlign="start" fontSize="x-large">
+          {selectedCategory === null ? 'No Folder selected' : selectedCategory}
+        </Typography>
         <IconButton
           onClick={() => getSelectedCategory(null)}
           sx={{ color: 'white' }}
@@ -46,20 +49,13 @@ const NotesSide: FC<IProps> = ({
           <CloseIcon />
         </IconButton>
       </Stack>
-      <Stack direction="row" justifyContent="space-between" marginTop="2.5%">
-        <Typography textAlign="start" fontSize="x-large">
-          {selectedCategory === null ? 'No Folder selected' : selectedCategory}
-        </Typography>
-        <IconButton onClick={searchActiveHandler} sx={{ color: 'white' }}>
-          <SearchIcon />
-        </IconButton>
-      </Stack>
-      {searchActive ? (
+      <Stack direction="row" justifyContent="end" marginTop="5%">
         <TextField
+          fullWidth={true}
           variant="standard"
           label="Search"
           sx={{
-            mt: '2.5%',
+            visibility: searchActive ? 'visible' : 'hidden',
             '& label': {
               color: 'white',
             },
@@ -85,8 +81,10 @@ const NotesSide: FC<IProps> = ({
             },
           }}
         />
-      ) : null}
-
+        <IconButton onClick={searchActiveHandler} sx={{ color: 'white' }}>
+          <SearchIcon />
+        </IconButton>
+      </Stack>
       <Stack
         spacing={2}
         direction="column"
