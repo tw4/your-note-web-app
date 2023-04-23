@@ -16,6 +16,7 @@ const Theme = createTheme({
   typography: {
     allVariants: {
       color: 'white',
+      fontFamily: 'Source Sans Pro, sans-serif',
     },
   },
 });
