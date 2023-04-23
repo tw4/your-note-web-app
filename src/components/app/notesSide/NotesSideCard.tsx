@@ -24,7 +24,7 @@ const NotesSideCard: FC<IProps> = ({ title, content, createdAt }) => {
         <Typography marginTop="2.5%" color="lightgray">
           {content.slice(0, 100)}
         </Typography>
-        <Typography marginTop="2.5%" color="lightgray">
+        <Typography marginTop="2.5%" color="grey">
           {createdAt}
         </Typography>
       </CardContent>
