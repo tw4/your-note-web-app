@@ -269,14 +269,12 @@ const CreateNote: FC<IProps> = ({ noteDetail }) => {
                 },
               }}
             />
-            <Button
-              endIcon={<ExpandCircleDownOutlinedIcon />}
-              color="secondary"
-              variant="contained"
-              onClick={categoryMenuHandler}
-            >
-              Select folder
-            </Button>
+            <Tooltip title="Select one of your existing folders">
+              <IconButton onClick={categoryMenuHandler} sx={{ color: 'white' }}>
+                <ExpandCircleDownOutlinedIcon />
+              </IconButton>
+            </Tooltip>
+
             <Menu
               anchorEl={categoryMenuAnchorEl}
               open={isOpenCategoryMenu}
