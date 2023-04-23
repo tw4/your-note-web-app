@@ -13,6 +13,8 @@ import {
   Tooltip,
   Backdrop,
   CircularProgress,
+  ListItem,
+  IconButton,
 } from '@mui/material';
 import React, { useState } from 'react';
 import EditIcon from '@mui/icons-material/Edit';
@@ -31,6 +33,7 @@ import toastMessage from '@/components/ToastMessage';
 import { severityEnum } from '@/enum';
 import { ZodNoteSaveValidationSchema } from '@/zod/ZodValidationSchema';
 import note from '@/pages/api/note';
+import { Save } from '@mui/icons-material';
 
 type IProps = {
   noteDetail: Note;
@@ -197,41 +200,27 @@ const CreateNote: FC<IProps> = ({ noteDetail }) => {
         ) : (
           <Typography fontSize="xx-large">{title.slice(0, 50)}</Typography>
         )}
-        <Button
-          onClick={menuHandler}
-          startIcon={<ExpandCircleDownOutlinedIcon />}
-          variant="contained"
-          color="secondary"
-        >
-          options
-        </Button>
-        <Menu
-          open={isOpenMenu}
-          anchorEl={menuAnchorEl}
-          onClose={menuCloseHandler}
-        >
-          <MenuList>
-            <MenuItem onClick={() => menuOptionsHandler('edit')}>
-              <ListItemIcon>
-                <EditIcon sx={{ color: 'white' }} />
-              </ListItemIcon>
-              <Typography>Edit</Typography>
-            </MenuItem>
-            <MenuItem onClick={() => menuOptionsHandler('save')}>
-              <ListItemIcon>
-                <SaveIcon sx={{ color: 'white' }} />
-              </ListItemIcon>
-              <Typography>Save</Typography>
-            </MenuItem>
-            <Divider style={{ backgroundColor: 'grey' }} />
-            <MenuItem onClick={() => menuOptionsHandler('delete')}>
-              <ListItemIcon>
-                <DeleteForeverIcon color="error" />
-              </ListItemIcon>
-              <Typography color="error.main">Delete</Typography>
-            </MenuItem>
-          </MenuList>
-        </Menu>
+
+        <Stack direction="row">
+          <IconButton
+            onClick={() => menuOptionsHandler('edit')}
+            sx={{ color: 'white' }}
+          >
+            <EditIcon />
+          </IconButton>
+          <IconButton
+            onClick={() => menuOptionsHandler('save')}
+            sx={{ color: 'white' }}
+          >
+            <SaveIcon />
+          </IconButton>
+          <IconButton
+            onClick={() => menuOptionsHandler('delete')}
+            color="error"
+          >
+            <DeleteForeverIcon />
+          </IconButton>
+        </Stack>
       </Stack>
       <Stack direction="row" alignItems="center" marginTop="2.5%" spacing={2}>
         <DateRangeIcon sx={{ color: 'grey' }} />
