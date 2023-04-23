@@ -339,7 +339,11 @@ const CreateNote: FC<IProps> = ({ noteDetail }) => {
             }}
           />
         ) : (
-          <Box color="white">
+          <Box
+            color="white"
+            height="90vh"
+            onDoubleClick={() => setIsEdit(true)}
+          >
             <ReactMarkdown children={content} />
           </Box>
         )}
