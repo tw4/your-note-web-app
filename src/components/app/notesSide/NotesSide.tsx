@@ -1,6 +1,6 @@
 import { Box, IconButton, Stack, TextField, Typography } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import NotesSideCard from '@/components/app/notesSide/NotesSideCard';
 import { FC } from 'react';
 import { Note } from '@/types';
@@ -20,12 +20,26 @@ const NotesSide: FC<IProps> = ({
   getSelectedCategory,
 }) => {
   const [searchActive, setSearchActive] = useState<boolean>(false);
+  const [searchValue, setSearchValue] = useState<string>();
+  const [filteredList, setFilteredList] = useState<Note[]>(noteList);
 
   const searchActiveHandler = () => {
-    if (searchActive) {
-      setSearchActive(false);
+    setSearchActive(!searchActive);
+  };
+
+  const searchHandler = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setSearchValue(e.target.value);
+    if (searchActive && e.target.value) {
+      const newNoteList = noteList.filter((note: Note) => {
+        if (
+          note.title.toLowerCase().includes(searchValue?.toLowerCase() || '')
+        ) {
+          return note;
+        }
+      });
+      setFilteredList(newNoteList);
     } else {
-      setSearchActive(true);
+      setFilteredList(noteList);
     }
   };
 
@@ -54,6 +68,8 @@ const NotesSide: FC<IProps> = ({
           fullWidth={true}
           variant="standard"
           label="Search"
+          value={searchValue}
+          onChange={searchHandler}
           sx={{
             visibility: searchActive ? 'visible' : 'hidden',
             '& label': {
@@ -109,7 +125,7 @@ const NotesSide: FC<IProps> = ({
           },
         }}
       >
-        {noteList.map(note => {
+        {filteredList.map(note => {
           if (note.category === selectedCategory) {
             return (
               <Box onClick={() => getNoteDetail(note)}>
