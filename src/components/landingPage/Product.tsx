@@ -17,63 +17,6 @@ const Product = () => {
       }}
     >
       <Box
-        sx={{
-          position: 'absolute',
-          height: { xs: '10vh', md: '50vh' },
-          width: { xs: '12.5vw', md: '25vw' },
-          borderRadius: '100%',
-          backgroundColor: 'primary.main',
-          top: { xs: '10vh', md: '5vh' },
-          left: '8vw',
-          filter: 'blur(10px)',
-          opacity: '0.5',
-          animation: 'moveLeft 5s infinite',
-          '@keyframes moveLeft': {
-            '0%': {
-              opacity: '0.5',
-              transform: 'translateY(0vh)',
-            },
-            '50%': {
-              opacity: '0.5',
-              transform: 'translateY(10vh)',
-            },
-            '100%': {
-              opacity: '0.5',
-              transform: 'translateY(0vh)',
-            },
-          },
-        }}
-      ></Box>
-      <Box
-        sx={{
-          position: 'absolute',
-          height: { xs: '10vh', md: '50vh' },
-          width: { xs: '12.5vw', md: '25vw' },
-          borderRadius: '100%',
-          backgroundColor: 'white',
-          top: { xs: '10vh', md: '5vh' },
-          right: '4vw',
-          filter: 'blur(10px)',
-          opacity: '0.5',
-          animation: 'moveRight 5s infinite',
-          '@keyframes moveRight': {
-            '0%': {
-              opacity: '1',
-              transform: 'translateY(10vh)',
-            },
-            '50%': {
-              opacity: '0.5',
-              transform: 'translateY(0vh)',
-            },
-            '100%': {
-              opacity: '1',
-              transform: 'translateY(10vh)',
-            },
-          },
-        }}
-      ></Box>
-
-      <Box
         position="absolute"
         sx={{
           width: '90vw',
