@@ -43,7 +43,7 @@ const Signup = () => {
   const diologHandler = () => {
     if (diologIsOpen) {
       setDiologIsOpen(false);
-      route.push('/login');
+      router.push('/login');
     }
   };
 
