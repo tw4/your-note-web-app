@@ -27,13 +27,14 @@ const Signup = () => {
   const [checked, setChecked] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
   const [diologIsOpen, setDiologIsOpen] = useState<boolean>(false);
+  const [pageIsLoading, setPageIsLoading] = useState<boolean>(false);
 
   const router = useRouter();
 
   useEffect(() => {
-    authControl(localStorage.getItem('token')!).then(res =>
-      res ? router.push('/app') : null
-    );
+    authControl(localStorage.getItem('token')!).then(res => {
+      res ? router.push('/app') : setPageIsLoading(true);
+    });
   }, []);
 
   const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -76,7 +77,7 @@ const Signup = () => {
     setLoading(false);
   };
   return (
-    <Layout>
+    <Layout isLogin={pageIsLoading}>
       <Stack direction="column" alignItems="center" justifyContent="center">
         <Box
           sx={{

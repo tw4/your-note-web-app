@@ -2,7 +2,9 @@ import Layout from '@/layout/Layout';
 import {
   Alert,
   AlertTitle,
+  Backdrop,
   Box,
+  CircularProgress,
   Stack,
   TextField,
   Typography,
@@ -21,6 +23,7 @@ const Login = () => {
   });
   const [formError, setFormError] = useState<string>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [pageIsLoading, setPageIsLoading] = useState<boolean>(false);
 
   const router = useRouter();
 
@@ -29,9 +32,9 @@ const Login = () => {
   };
 
   useEffect(() => {
-    authControl(localStorage.getItem('token')!).then(res =>
-      res ? router.push('/app') : null
-    );
+    authControl(localStorage.getItem('token')!).then(res => {
+      res ? router.push('/app') : setPageIsLoading(true);
+    });
   }, []);
 
   const submitHandler = async () => {
@@ -64,7 +67,7 @@ const Login = () => {
     setIsLoading(false);
   };
   return (
-    <Layout isLogin={isLoading}>
+    <Layout isLogin={pageIsLoading}>
       <Stack direction="column" alignItems="center" justifyContent="center">
         <Box
           sx={{
