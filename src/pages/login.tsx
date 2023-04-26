@@ -7,11 +7,12 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react';
 import { ZodUserLoginValidationSchema } from '@/zod/ZodValidationSchema';
 import { LoadingButton } from '@mui/lab';
 import { useRouter } from 'next/router';
+import { authControl } from '@/auth';
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -26,6 +27,12 @@ const Login = () => {
   const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
+
+  useEffect(() => {
+    authControl(localStorage.getItem('token')!).then(res =>
+      res ? router.push('/app') : null
+    );
+  }, []);
 
   const submitHandler = async () => {
     setLoading(true);

@@ -9,12 +9,13 @@ import {
   Alert,
   AlertTitle,
 } from '@mui/material';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react';
 import { ZodUserRegisterValidationSchema } from '@/zod/ZodValidationSchema';
 import { LoadingButton } from '@mui/lab/';
 import Diolog from '@/components/Diolog';
 import { useRouter } from 'next/router';
+import { authControl } from '@/auth';
 
 const Signup = () => {
   const [formData, setFormData] = useState({
@@ -27,7 +28,13 @@ const Signup = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [diologIsOpen, setDiologIsOpen] = useState<boolean>(false);
 
-  const route = useRouter();
+  const router = useRouter();
+
+  useEffect(() => {
+    authControl(localStorage.getItem('token')!).then(res =>
+      res ? router.push('/app') : null
+    );
+  }, []);
 
   const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
