@@ -20,7 +20,7 @@ const Login = () => {
     password: '',
   });
   const [formError, setFormError] = useState<string>();
-  const [loading, setLoading] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const router = useRouter();
 
@@ -35,7 +35,7 @@ const Login = () => {
   }, []);
 
   const submitHandler = async () => {
-    setLoading(true);
+    setIsLoading(true);
     if (ZodUserLoginValidationSchema.safeParse(formData).success) {
       setFormError(undefined);
       const res = await fetch('/api/auth/login', {
@@ -61,10 +61,10 @@ const Login = () => {
     } else {
       setFormError('Invalid email or password');
     }
-    setLoading(false);
+    setIsLoading(false);
   };
   return (
-    <Layout>
+    <Layout isLogin={isLoading}>
       <Stack direction="column" alignItems="center" justifyContent="center">
         <Box
           sx={{
@@ -133,7 +133,7 @@ const Login = () => {
               </Alert>
             ) : null}
             <LoadingButton
-              loading={loading ? true : false}
+              loading={isLoading}
               loadingPosition="start"
               onClick={submitHandler}
               type="submit"
